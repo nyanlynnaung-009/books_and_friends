@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { BookOpen, Users, MessageSquare, PlusCircle, LogOut, Globe, Library as LibraryIcon, Sun, Moon } from 'lucide-react';
+import { BookOpenText, UsersRound, MessageSquareText, PlusSquare, LogOut, Globe, LibraryBig, Sun, Moon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { supabase } from './lib/supabaseClient';
 import Auth from './components/Auth';
@@ -71,7 +71,7 @@ function Dashboard({ userId }: { userId: string }) {
           onClick={() => setIsCreateModalOpen(true)}
           className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
         >
-          <PlusCircle className="w-5 h-5" />
+          <PlusSquare className="w-5 h-5" />
           {t('create_session')}
         </button>
       </div>
@@ -96,8 +96,8 @@ function Dashboard({ userId }: { userId: string }) {
                 <h3 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">{session.bookTitle}</h3>
                 <p className="text-slate-600 dark:text-slate-300 mt-1">{session.bookAuthor}</p>
                 <div className="mt-4 flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
-                  <div className="flex items-center gap-1"><Users className="w-4 h-4" /> {session.participantsCount} {t('members')}</div>
-                  <div className="flex items-center gap-1"><MessageSquare className="w-4 h-4" /> {session.commentsCount} {t('posts')}</div>
+                  <div className="flex items-center gap-1"><UsersRound className="w-4 h-4" /> {session.participantsCount} {t('members')}</div>
+                  <div className="flex items-center gap-1"><MessageSquareText className="w-4 h-4" /> {session.commentsCount} {t('posts')}</div>
                 </div>
               </div>
             </Link>
@@ -184,7 +184,7 @@ export default function App() {
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="bg-indigo-600 p-2 rounded-lg text-white">
-                <BookOpen className="w-5 h-5" />
+                <BookOpenText className="w-5 h-5" />
               </div>
               <h1 className="text-xl font-semibold tracking-tight dark:text-white">{t('app_name')}</h1>
             </div>
@@ -198,7 +198,7 @@ export default function App() {
               </button>
               <Link to="/" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium hidden sm:block">{t('dashboard')}</Link>
               <Link to="/library" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium flex items-center gap-1">
-                <LibraryIcon className="w-4 h-4" /> <span className="hidden sm:inline">{t('library')}</span>
+                <LibraryBig className="w-4 h-4" /> <span className="hidden sm:inline">{t('library')}</span>
               </Link>
               <Link to="/profile" className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium group">
                 <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 overflow-hidden flex items-center justify-center group-hover:border-indigo-300 dark:group-hover:border-indigo-500 transition">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, PlusCircle, Library as LibraryIcon } from 'lucide-react';
+import { BookOpen, PlusSquare, LibraryBig } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import { useTranslation } from 'react-i18next';
 import UploadBookModal from './UploadBookModal';
@@ -32,14 +32,14 @@ export default function Library({ userId }: { userId: string }) {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <LibraryIcon className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+          <LibraryBig className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
           {t('library')}
         </h2>
         <button 
           onClick={() => setIsUploadModalOpen(true)}
           className="flex items-center gap-2 bg-indigo-600 dark:bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition"
         >
-          <PlusCircle className="w-5 h-5" />
+          <PlusSquare className="w-5 h-5" />
           {t('upload_book')}
         </button>
       </div>

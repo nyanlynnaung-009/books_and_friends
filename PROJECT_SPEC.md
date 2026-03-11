@@ -10,17 +10,17 @@
 | **Session Visibility** | Public sessions only. (Private sessions planned for v2). |
 | **Progress Tracking** | Supports tracking by Page Numbers or Percentages (%). |
 | **Book Data** | Manual input by users. No automated API integration. |
-| **Reactions** | Comprehensive set of emojis (👍, ❤️, 😂, 😲, 😢, etc.) for comments. |
+| **Reactions** | Comprehensive set of emojis (👍, ❤️, 😂, 😲, 😢, 📖, ✨, 🤩, 📚) for comments. |
 | **Development Order** | Web App and Mobile App (React Native/Expo) are both implemented. |
 
 ## Core Features
 
 *   **User Authentication & Profiles:** Anyone can register and create an account. Users will have basic profiles to identify themselves in discussions. The authentication flow features a modern, glassmorphic UI with password visibility toggles.
 *   **Profile Customization:** Users can update their display name and upload custom profile pictures (avatars) stored in Supabase Storage. Avatars are displayed in the navigation header and discussion threads.
-*   **Public Reading Sessions:** Members can create a new public reading session by manually submitting a book's Title, Author, and Total Pages/Chapters. Anyone can browse and join.
+*   **Public Reading Sessions:** Members can create a new public reading session by manually submitting a book's Title, Author, and Total Pages/Chapters. Anyone can browse and join. Creators can delete their sessions if they wish.
 *   **Advanced Progress Tracking:** Participants can log and update their reading progress using page numbers or percentages, allowing the group to see real-time progress.
-*   **Single-Thread Discussions with Replies:** Each session features a dedicated discussion board where users can share thoughts and reply to each other's comments to create threaded conversations.
-*   **Comprehensive Social Reactions:** Members can react to comments and replies using a full set of emojis to foster engagement.
+*   **Single-Thread Discussions with Replies:** Each session features a dedicated discussion board where users can share thoughts, edit/delete their own comments, and reply to each other's comments to create threaded conversations.
+*   **Comprehensive Social Reactions:** Members can react to comments and replies using an expanded set of emojis (including 📖, ✨, 🤩, 📚) to foster engagement.
 
 ## Technical Stack
 *   **Backend:** Supabase (PostgreSQL, Authentication, Realtime subscriptions).
