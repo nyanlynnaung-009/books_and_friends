@@ -1,0 +1,78 @@
+{
+  "app_name": "Books & Friends",
+  "dashboard": "Dashboard",
+  "library": "Library",
+  "upload_book": "Upload Book",
+  "book_file": "Book File (PDF, EPUB)",
+  "cover_image": "Cover Image (Optional)",
+  "description": "Description",
+  "read_book": "Read Book",
+  "open_new_tab": "Open in new tab",
+  "upload_success": "Book uploaded successfully!",
+  "upload_error": "Error uploading book",
+  "no_books_library": "No books in the library yet. Upload one to get started!",
+  "upload_modal": {
+    "title": "Upload a Book",
+    "cancel": "Cancel",
+    "upload": "Upload Book",
+    "uploading": "Uploading..."
+  },
+  "profile": "Profile",
+  "sign_out": "Sign Out",
+  "reading_sessions": "Reading Sessions",
+  "create_session": "Create Session",
+  "error_loading_sessions": "Error loading sessions:",
+  "loading_sessions": "Loading sessions...",
+  "no_sessions_found": "No reading sessions found. Create one to get started!",
+  "unknown_book": "Unknown Book",
+  "unknown_author": "Unknown Author",
+  "members": "members",
+  "posts": "posts",
+  "by": "by",
+  
+  "auth": {
+    "sign_in_title": "Sign in to your account",
+    "create_account_title": "Create an account",
+    "email_address": "Email address",
+    "password": "Password",
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "need_account": "Need an account? Sign up",
+    "already_have_account": "Already have an account? Sign in",
+    "signing_in": "Signing in...",
+    "signing_up": "Signing up..."
+  },
+  
+  "create_modal": {
+    "title": "Create Reading Session",
+    "search_placeholder": "Search for a book...",
+    "searching": "Searching...",
+    "no_books_found": "No books found.",
+    "select": "Select",
+    "cancel": "Cancel",
+    "create": "Create Session",
+    "creating": "Creating..."
+  },
+  
+  "session_detail": {
+    "back_to_dashboard": "Back to Dashboard",
+    "total_pages": "Total Pages:",
+    "discussion": "Discussion",
+    "no_comments_yet": "No comments yet. Be the first to start the discussion!",
+    "replying_to": "Replying to",
+    "share_thoughts": "Share your thoughts...",
+    "reply": "Reply"
+  },
+  
+  "profile_settings": {
+    "title": "Profile Settings",
+    "display_name": "Display Name",
+    "email": "Email",
+    "avatar": "Avatar",
+    "uploading": "Uploading...",
+    "change_avatar": "Change Avatar",
+    "save_changes": "Save Changes",
+    "saving": "Saving...",
+    "success_msg": "Profile updated successfully!"
+  }
+}

@@ -20,7 +20,11 @@ export default function DashboardScreen() {
       .select('*, book:books(*), comments(id)')
       .order('created_at', { ascending: false });
 
-    if (!error && data) {
+    if (error) {
+      if (error.message?.includes('JWT expired')) {
+        await supabase.auth.signOut();
+      }
+    } else if (data) {
       setSessions(data);
     }
     setLoading(false);

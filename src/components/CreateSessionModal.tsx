@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface CreateSessionModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface CreateSessionModalProps {
 }
 
 export default function CreateSessionModal({ isOpen, onClose, onSuccess, userId }: CreateSessionModalProps) {
+  const { t } = useTranslation();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [totalPages, setTotalPages] = useState('');
@@ -77,49 +79,49 @@ export default function CreateSessionModal({ isOpen, onClose, onSuccess, userId 
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-        <div className="flex items-center justify-between p-6 border-b border-slate-100">
-          <h2 className="text-xl font-semibold text-slate-900">Create Reading Session</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+        <div className="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-700">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{t('create_modal.title')}</h2>
+          <button onClick={onClose} className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition">
             <X className="w-5 h-5" />
           </button>
         </div>
         
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {error && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+            <div className="bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm border border-red-100 dark:border-red-800">
               {error}
             </div>
           )}
           
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-slate-700 mb-1">Book Title</label>
+            <label htmlFor="title" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Book Title</label>
             <input
               type="text"
               id="title"
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
               placeholder="e.g. The Great Gatsby"
             />
           </div>
           
           <div>
-            <label htmlFor="author" className="block text-sm font-medium text-slate-700 mb-1">Author</label>
+            <label htmlFor="author" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Author</label>
             <input
               type="text"
               id="author"
               required
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
               placeholder="e.g. F. Scott Fitzgerald"
             />
           </div>
           
           <div>
-            <label htmlFor="totalPages" className="block text-sm font-medium text-slate-700 mb-1">Total Pages (or Chapters)</label>
+            <label htmlFor="totalPages" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Total Pages (or Chapters)</label>
             <input
               type="number"
               id="totalPages"
@@ -127,7 +129,7 @@ export default function CreateSessionModal({ isOpen, onClose, onSuccess, userId 
               min="1"
               value={totalPages}
               onChange={(e) => setTotalPages(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
               placeholder="e.g. 218"
             />
           </div>
@@ -136,16 +138,16 @@ export default function CreateSessionModal({ isOpen, onClose, onSuccess, userId 
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition"
+              className="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition"
             >
-              Cancel
+              {t('create_modal.cancel')}
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+              className="flex-1 px-4 py-2 bg-indigo-600 dark:bg-indigo-500 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition disabled:opacity-50"
             >
-              {loading ? 'Creating...' : 'Create Session'}
+              {loading ? t('create_modal.creating') : t('create_modal.create')}
             </button>
           </div>
         </form>

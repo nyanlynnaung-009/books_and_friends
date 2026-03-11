@@ -37,6 +37,9 @@ export default function SessionDetailScreen() {
       
     if (sessionError) {
       console.error(sessionError);
+      if (sessionError.message?.includes('JWT expired')) {
+        await supabase.auth.signOut();
+      }
       setLoading(false);
       return;
     }
