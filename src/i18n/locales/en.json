@@ -2,6 +2,7 @@
   "app_name": "Books & Friends",
   "dashboard": "Dashboard",
   "library": "Library",
+  "admin": "Admin",
   "upload_book": "Upload Book",
   "book_file": "Book File (PDF, EPUB)",
   "cover_image": "Cover Image (Optional)",
@@ -67,11 +68,14 @@
   
   "profile_settings": {
     "title": "Profile Settings",
+    "subtitle": "Manage your public profile and avatar",
     "display_name": "Display Name",
+    "name_placeholder": "Enter your name",
     "email": "Email",
     "avatar": "Avatar",
     "uploading": "Uploading...",
     "change_avatar": "Change Avatar",
+    "remove_avatar": "Remove picture",
     "save_changes": "Save Changes",
     "saving": "Saving...",
     "success_msg": "Profile updated successfully!"

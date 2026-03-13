@@ -8,6 +8,7 @@ import CreateSessionModal from './components/CreateSessionModal';
 import SessionDetail from './components/SessionDetail';
 import ProfileSettings from './components/ProfileSettings';
 import Library from './components/Library';
+import AdminDashboard from './components/AdminDashboard';
 
 // Simple Dashboard Page
 function Dashboard({ userId }: { userId: string }) {
@@ -66,10 +67,10 @@ function Dashboard({ userId }: { userId: string }) {
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-slate-900 dark:text-white">{t('reading_sessions')}</h2>
+        <h2 className="text-3xl font-bold text-stone-900 dark:text-white">{t('reading_sessions')}</h2>
         <button 
           onClick={() => setIsCreateModalOpen(true)}
-          className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+          className="flex items-center gap-2 bg-gradient-to-r from-rose-500 to-rose-600 text-white px-5 py-2.5 rounded-xl hover:from-rose-600 hover:to-rose-700 shadow-sm hover:shadow-md transition-all font-medium"
         >
           <PlusSquare className="w-5 h-5" />
           {t('create_session')}
@@ -77,27 +78,27 @@ function Dashboard({ userId }: { userId: string }) {
       </div>
       
       {fetchError && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl">
           <strong>{t('error_loading_sessions')}</strong> {fetchError}
         </div>
       )}
 
       {isLoading ? (
-        <div className="text-slate-500 dark:text-slate-400 text-center py-12">{t('loading_sessions')}</div>
+        <div className="text-stone-500 dark:text-stone-400 text-center py-12">{t('loading_sessions')}</div>
       ) : sessions.length === 0 && !fetchError ? (
-        <div className="text-slate-500 dark:text-slate-400 text-center py-12 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 border-dashed">
+        <div className="text-stone-500 dark:text-stone-400 text-center py-16 bg-white dark:bg-stone-800 rounded-3xl border border-stone-200 dark:border-stone-700 border-dashed">
           {t('no_sessions_found')}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sessions.map((session: any) => (
             <Link to={`/session/${session.id}`} key={session.id} className="block group">
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 group-hover:shadow-md group-hover:border-indigo-200 dark:group-hover:border-indigo-500 transition h-full">
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">{session.bookTitle}</h3>
-                <p className="text-slate-600 dark:text-slate-300 mt-1">{session.bookAuthor}</p>
-                <div className="mt-4 flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
-                  <div className="flex items-center gap-1"><UsersRound className="w-4 h-4" /> {session.participantsCount} {t('members')}</div>
-                  <div className="flex items-center gap-1"><MessageSquareText className="w-4 h-4" /> {session.commentsCount} {t('posts')}</div>
+              <div className="bg-white dark:bg-stone-800 p-6 rounded-3xl shadow-sm border border-stone-100 dark:border-stone-700 group-hover:shadow-xl group-hover:shadow-rose-500/10 group-hover:border-rose-200 dark:group-hover:border-rose-500/50 transition-all duration-300 h-full flex flex-col">
+                <h3 className="text-xl font-semibold text-stone-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors line-clamp-2">{session.bookTitle}</h3>
+                <p className="text-stone-500 dark:text-stone-400 mt-2 font-medium">{session.bookAuthor}</p>
+                <div className="mt-auto pt-6 flex items-center gap-4 text-sm text-stone-500 dark:text-stone-400">
+                  <div className="flex items-center gap-1.5 bg-stone-50 dark:bg-stone-900/50 px-3 py-1.5 rounded-lg"><UsersRound className="w-4 h-4 text-stone-400" /> {session.participantsCount}</div>
+                  <div className="flex items-center gap-1.5 bg-stone-50 dark:bg-stone-900/50 px-3 py-1.5 rounded-lg"><MessageSquareText className="w-4 h-4 text-stone-400" /> {session.commentsCount}</div>
                 </div>
               </div>
             </Link>
@@ -178,58 +179,111 @@ export default function App() {
   console.log('Session exists, showing Dashboard');
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
-        {/* Header */}
-        <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-10 transition-colors duration-200">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="bg-indigo-600 p-2 rounded-lg text-white">
-                <BookOpenText className="w-5 h-5" />
-              </div>
-              <h1 className="text-xl font-semibold tracking-tight dark:text-white">{t('app_name')}</h1>
+      <div className="min-h-screen bg-stone-50 dark:bg-stone-900 text-stone-900 dark:text-stone-100 font-sans transition-colors duration-200 flex">
+        {/* Sidebar */}
+        <aside className="w-64 bg-white dark:bg-stone-800 border-r border-stone-200 dark:border-stone-700 flex-col sticky top-0 h-screen hidden md:flex shadow-sm z-20">
+          <div className="p-6 flex items-center gap-3 border-b border-stone-100 dark:border-stone-700/50 h-20">
+            <div className="bg-gradient-to-br from-rose-500 to-rose-600 p-2.5 rounded-xl text-white shadow-sm">
+              <BookOpenText className="w-6 h-6" />
             </div>
-            <nav className="flex items-center gap-4 sm:gap-6">
-              <button onClick={toggleTheme} className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium flex items-center gap-1">
-                {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              </button>
-              <button onClick={toggleLanguage} className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium flex items-center gap-1">
-                <Globe className="w-4 h-4" />
-                <span className="hidden sm:inline">{i18n.language === 'en' ? 'မြန်မာ' : 'English'}</span>
-              </button>
-              <Link to="/" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium hidden sm:block">{t('dashboard')}</Link>
-              <Link to="/library" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium flex items-center gap-1">
-                <LibraryBig className="w-4 h-4" /> <span className="hidden sm:inline">{t('library')}</span>
-              </Link>
-              <Link to="/profile" className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium group">
-                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 overflow-hidden flex items-center justify-center group-hover:border-indigo-300 dark:group-hover:border-indigo-500 transition">
-                  {profile?.avatar_url ? (
-                    <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                  ) : (
-                    <div className="text-slate-400 dark:text-slate-300 text-xs font-bold">{profile?.display_name?.charAt(0) || session.user.email?.charAt(0).toUpperCase()}</div>
-                  )}
-                </div>
-                <span className="hidden sm:flex items-center gap-2">
-                  {t('profile')}
-                  {profile?.is_admin && (
-                    <span className="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Admin</span>
-                  )}
-                </span>
-              </Link>
-              <button onClick={() => supabase.auth.signOut()} className="text-slate-600 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-400 font-medium flex items-center gap-2">
-                <LogOut className="w-4 h-4" /> <span className="hidden sm:inline">{t('sign_out')}</span>
-              </button>
-            </nav>
+            <h1 className="text-2xl font-bold tracking-tight dark:text-white truncate font-serif">{t('app_name')}</h1>
           </div>
-        </header>
+          <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto">
+            <Link to="/" className="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-300 hover:bg-rose-50 dark:hover:bg-stone-700/50 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl font-medium transition-all">
+              <BookOpenText className="w-5 h-5" />
+              {t('dashboard')}
+            </Link>
+            <Link to="/library" className="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-300 hover:bg-rose-50 dark:hover:bg-stone-700/50 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl font-medium transition-all">
+              <LibraryBig className="w-5 h-5" />
+              {t('library')}
+            </Link>
+            {profile?.is_admin && (
+              <Link to="/admin" className="flex items-center gap-3 px-4 py-3 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl font-medium transition-all">
+                <UsersRound className="w-5 h-5" />
+                {t('admin')}
+              </Link>
+            )}
+          </nav>
+          <div className="p-4 border-t border-stone-100 dark:border-stone-700/50">
+            <button onClick={() => supabase.auth.signOut()} className="flex items-center gap-3 w-full px-4 py-3 text-stone-500 dark:text-stone-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 rounded-xl font-medium transition-all">
+              <LogOut className="w-5 h-5" />
+              {t('sign_out')}
+            </button>
+          </div>
+        </aside>
 
-        <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <Routes>
-            <Route path="/" element={<Dashboard userId={session.user.id} />} />
-            <Route path="/library" element={<Library userId={session.user.id} />} />
-            <Route path="/session/:id" element={<SessionDetail userId={session.user.id} />} />
-            <Route path="/profile" element={<ProfileSettings userId={session.user.id} />} />
-          </Routes>
-        </main>
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+          {/* Header */}
+          <header className="bg-white/80 dark:bg-stone-800/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-700 sticky top-0 z-10 transition-colors duration-200">
+            <div className="px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between md:justify-end">
+              <div className="flex items-center gap-3 md:hidden">
+                <div className="bg-gradient-to-br from-rose-500 to-rose-600 p-2 rounded-lg text-white">
+                  <BookOpenText className="w-5 h-5" />
+                </div>
+                <h1 className="text-xl font-bold tracking-tight dark:text-white truncate font-serif">{t('app_name')}</h1>
+              </div>
+              <nav className="flex items-center gap-2 sm:gap-4">
+                <button onClick={toggleTheme} className="p-2 text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700 rounded-full transition-colors">
+                  {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </button>
+                <button onClick={toggleLanguage} className="px-3 py-2 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-700 rounded-xl font-medium flex items-center gap-2 transition-colors">
+                  <Globe className="w-4 h-4" />
+                  <span className="hidden sm:inline">{i18n.language === 'en' ? 'မြန်မာ' : 'English'}</span>
+                </button>
+                
+                {/* Mobile Navigation Links */}
+                <Link to="/" className="p-2 text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700 rounded-full md:hidden transition-colors">
+                  <BookOpenText className="w-5 h-5" />
+                </Link>
+                {profile?.is_admin && (
+                  <Link to="/admin" className="p-2 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-full md:hidden transition-colors">
+                    <UsersRound className="w-5 h-5" />
+                  </Link>
+                )}
+
+                <Link to="/library" className="p-2 text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700 rounded-full md:hidden transition-colors">
+                  <LibraryBig className="w-5 h-5" />
+                </Link>
+
+                <div className="h-8 w-px bg-stone-200 dark:bg-stone-700 mx-2 hidden sm:block"></div>
+
+                <Link to="/profile" className="flex items-center gap-3 pl-2 pr-4 py-1.5 text-stone-700 dark:text-stone-200 hover:bg-stone-50 dark:hover:bg-stone-700/50 rounded-full font-medium group transition-all border border-transparent hover:border-stone-200 dark:hover:border-stone-600">
+                  <div className="w-9 h-9 rounded-full bg-stone-100 dark:bg-stone-700 border-2 border-white dark:border-stone-800 shadow-sm overflow-hidden flex items-center justify-center group-hover:border-rose-200 dark:group-hover:border-rose-500 transition-colors">
+                    {profile?.avatar_url ? (
+                      <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    ) : (
+                      <div className="text-stone-400 dark:text-stone-300 text-sm font-bold">{profile?.display_name?.charAt(0) || session.user.email?.charAt(0).toUpperCase()}</div>
+                    )}
+                  </div>
+                  <span className="hidden sm:flex flex-col items-start">
+                    <span className="text-sm leading-tight">{t('profile')}</span>
+                    {profile?.is_admin && (
+                      <span className="text-[10px] text-rose-600 dark:text-rose-400 font-bold uppercase tracking-wider">{t('admin')}</span>
+                    )}
+                  </span>
+                </Link>
+                
+                {/* Mobile Sign Out */}
+                <button onClick={() => supabase.auth.signOut()} className="p-2 text-stone-500 dark:text-stone-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 rounded-full md:hidden transition-colors">
+                  <LogOut className="w-5 h-5" />
+                </button>
+              </nav>
+            </div>
+          </header>
+
+          <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+            <div className="max-w-5xl mx-auto">
+              <Routes>
+                <Route path="/" element={<Dashboard userId={session.user.id} />} />
+                <Route path="/library" element={<Library userId={session.user.id} />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/session/:id" element={<SessionDetail userId={session.user.id} />} />
+                <Route path="/profile" element={<ProfileSettings userId={session.user.id} onProfileUpdate={() => fetchProfile(session.user.id)} />} />
+              </Routes>
+            </div>
+          </main>
+        </div>
       </div>
     </BrowserRouter>
   );

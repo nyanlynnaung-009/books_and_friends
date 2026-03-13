@@ -34,27 +34,27 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#fdfcfb] dark:bg-slate-900 p-4 transition-colors duration-200">
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#fdfcfb] dark:bg-stone-900 p-4 transition-colors duration-200">
       {/* Background Decorative Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-indigo-50 dark:bg-indigo-900/20 rounded-full blur-3xl opacity-50" />
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-rose-50 dark:bg-rose-900/20 rounded-full blur-3xl opacity-50" />
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-rose-50 dark:bg-rose-900/20 rounded-full blur-3xl opacity-50" />
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-stone-50 dark:bg-stone-900/20 rounded-full blur-3xl opacity-50" />
       </div>
 
       <div className="relative w-full max-w-[440px]">
         {/* Logo/Brand */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-indigo-200 dark:shadow-indigo-900/50 mb-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+          <div className="w-14 h-14 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-rose-200 dark:shadow-rose-900/50 mb-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
             <BookOpen className="w-8 h-8" />
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">{t('app_name')}</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-2 text-center">
+          <h1 className="text-3xl font-bold text-stone-900 dark:text-white tracking-tight font-serif">{t('app_name')}</h1>
+          <p className="text-stone-500 dark:text-stone-400 mt-2 text-center">
             {isSignUp ? t('auth.create_account_title') : t('auth.sign_in_title')}
           </p>
         </div>
 
         {/* Auth Card */}
-        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-[32px] shadow-2xl shadow-slate-200/50 dark:shadow-black/50 border border-white/50 dark:border-slate-700/50">
+        <div className="bg-white/80 dark:bg-stone-800/80 backdrop-blur-xl p-8 rounded-[32px] shadow-2xl shadow-stone-200/50 dark:shadow-black/50 border border-white/50 dark:border-stone-700/50">
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-900/30 border border-red-100 dark:border-red-800 text-red-600 dark:text-red-400 rounded-2xl text-sm animate-shake">
@@ -64,14 +64,14 @@ export default function Auth() {
             )}
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700 dark:text-slate-300 ml-1">{t('auth.email_address')}</label>
+              <label className="text-sm font-medium text-stone-700 dark:text-stone-300 ml-1">{t('auth.email_address')}</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-slate-500" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400 dark:text-stone-500" />
                 <input
                   type="email"
                   required
                   placeholder="name@example.com"
-                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-all duration-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
+                  className="w-full pl-12 pr-4 py-3.5 bg-stone-50 dark:bg-stone-900/50 border border-stone-200 dark:border-stone-700 rounded-2xl focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 dark:focus:border-rose-400 outline-none transition-all duration-200 placeholder:text-stone-400 dark:placeholder:text-stone-500 text-stone-900 dark:text-white"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -79,21 +79,21 @@ export default function Auth() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700 dark:text-slate-300 ml-1">{t('auth.password')}</label>
+              <label className="text-sm font-medium text-stone-700 dark:text-stone-300 ml-1">{t('auth.password')}</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-slate-500" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400 dark:text-stone-500" />
                 <input
                   type={showPassword ? "text" : "password"}
                   required
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-12 py-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-all duration-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
+                  className="w-full pl-12 pr-12 py-3.5 bg-stone-50 dark:bg-stone-900/50 border border-stone-200 dark:border-stone-700 rounded-2xl focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 dark:focus:border-rose-400 outline-none transition-all duration-200 placeholder:text-stone-400 dark:placeholder:text-stone-500 text-stone-900 dark:text-white"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff className="w-5 h-5" />
@@ -107,7 +107,7 @@ export default function Auth() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 dark:bg-indigo-500 text-white py-4 rounded-2xl font-semibold hover:bg-indigo-700 dark:hover:bg-indigo-600 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 flex items-center justify-center gap-2 group"
+              className="w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-4 rounded-2xl font-semibold hover:from-rose-600 hover:to-rose-700 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-rose-200 dark:shadow-rose-900/20 flex items-center justify-center gap-2 group"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -120,10 +120,10 @@ export default function Auth() {
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700/50 text-center">
+          <div className="mt-8 pt-6 border-t border-stone-100 dark:border-stone-700/50 text-center">
             <button
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 text-sm font-medium transition-colors"
+              className="text-stone-500 dark:text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 text-sm font-medium transition-colors"
             >
               {isSignUp ? t('auth.already_have_account') : t('auth.need_account')}
             </button>
@@ -131,7 +131,7 @@ export default function Auth() {
         </div>
 
         {/* Footer Info */}
-        <p className="mt-8 text-center text-slate-400 dark:text-slate-500 text-xs">
+        <p className="mt-8 text-center text-stone-400 dark:text-stone-500 text-xs">
           By continuing, you agree to our Terms of Service and Privacy Policy.
         </p>
       </div>
