@@ -2,16 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { supabase } from '../lib/supabase';
 import { useNavigation } from '@react-navigation/native';
-import { BookOpen, LogOut } from 'lucide-react-native';
+import { BookOpen, Shield } from 'lucide-react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function DashboardScreen() {
   const [sessions, setSessions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigation = useNavigation<any>();
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     fetchSessions();
+    checkAdminStatus();
   }, []);
+
+  const checkAdminStatus = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single();
+      
+      if (data && data.role === 'admin') {
+        setIsAdmin(true);
+      }
+    }
+  };
 
   const fetchSessions = async () => {
     setLoading(true);
@@ -28,10 +47,6 @@ export default function DashboardScreen() {
       setSessions(data);
     }
     setLoading(false);
-  };
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
   };
 
   const renderItem = ({ item }: { item: any }) => {
@@ -60,11 +75,15 @@ export default function DashboardScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: Math.max(insets.top, 20) }]}>
         <Text style={styles.title}>Reading Sessions</Text>
-        <TouchableOpacity onPress={handleSignOut} style={styles.logoutButton}>
-          <LogOut size={20} color="#64748b" />
-        </TouchableOpacity>
+        <View style={styles.headerActions}>
+          {isAdmin && (
+            <TouchableOpacity onPress={() => navigation.navigate('AdminDashboard')} style={styles.iconButton}>
+              <Shield size={20} color="#e11d48" />
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
 
       {loading ? (
@@ -74,7 +93,7 @@ export default function DashboardScreen() {
           data={sessions}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
-          contentContainerStyle={styles.listContainer}
+          contentContainerStyle={[styles.listContainer, { paddingBottom: insets.bottom + 20 }]}
           onRefresh={fetchSessions}
           refreshing={loading}
           ListEmptyComponent={<Text style={styles.emptyText}>No active reading sessions.</Text>}
@@ -94,7 +113,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 20,
-    paddingTop: 60,
     backgroundColor: 'white',
     borderBottomWidth: 1,
     borderBottomColor: '#e2e8f0',
@@ -104,8 +122,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#0f172a',
   },
-  logoutButton: {
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconButton: {
     padding: 8,
+    marginLeft: 8,
   },
   listContainer: {
     padding: 16,

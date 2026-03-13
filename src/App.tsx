@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { BookOpenText, UsersRound, MessageSquareText, PlusSquare, LogOut, Globe, LibraryBig, Sun, Moon } from 'lucide-react';
+import { BookOpenText, UsersRound, MessageSquareText, PlusSquare, LogOut, Globe, LibraryBig, Sun, Moon, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { supabase } from './lib/supabaseClient';
 import Auth from './components/Auth';
@@ -189,6 +189,16 @@ export default function App() {
             <h1 className="text-2xl font-bold tracking-tight dark:text-white truncate font-serif">{t('app_name')}</h1>
           </div>
           <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto">
+            <Link to="/profile" className="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-300 hover:bg-rose-50 dark:hover:bg-stone-700/50 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl font-medium transition-all">
+              {profile?.avatar_url ? (
+                <img src={profile.avatar_url} alt="Profile" className="w-6 h-6 rounded-full object-cover border border-stone-200 dark:border-stone-600 shadow-sm" referrerPolicy="no-referrer" />
+              ) : (
+                <div className="w-6 h-6 rounded-full bg-stone-100 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 flex items-center justify-center shadow-sm">
+                  <User className="w-4 h-4 text-stone-500 dark:text-stone-400" />
+                </div>
+              )}
+              {t('profile')}
+            </Link>
             <Link to="/" className="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-300 hover:bg-rose-50 dark:hover:bg-stone-700/50 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl font-medium transition-all">
               <BookOpenText className="w-5 h-5" />
               {t('dashboard')}
@@ -233,6 +243,15 @@ export default function App() {
                 </button>
                 
                 {/* Mobile Navigation Links */}
+                <Link to="/profile" className="p-2 text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700 rounded-full md:hidden transition-colors flex items-center justify-center">
+                  {profile?.avatar_url ? (
+                    <img src={profile.avatar_url} alt="Profile" className="w-6 h-6 rounded-full object-cover border border-stone-200 dark:border-stone-600 shadow-sm" referrerPolicy="no-referrer" />
+                  ) : (
+                    <div className="w-6 h-6 rounded-full bg-stone-100 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 flex items-center justify-center shadow-sm">
+                      <User className="w-4 h-4 text-stone-500 dark:text-stone-400" />
+                    </div>
+                  )}
+                </Link>
                 <Link to="/" className="p-2 text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700 rounded-full md:hidden transition-colors">
                   <BookOpenText className="w-5 h-5" />
                 </Link>
@@ -246,24 +265,6 @@ export default function App() {
                   <LibraryBig className="w-5 h-5" />
                 </Link>
 
-                <div className="h-8 w-px bg-stone-200 dark:bg-stone-700 mx-2 hidden sm:block"></div>
-
-                <Link to="/profile" className="flex items-center gap-3 pl-2 pr-4 py-1.5 text-stone-700 dark:text-stone-200 hover:bg-stone-50 dark:hover:bg-stone-700/50 rounded-full font-medium group transition-all border border-transparent hover:border-stone-200 dark:hover:border-stone-600">
-                  <div className="w-9 h-9 rounded-full bg-stone-100 dark:bg-stone-700 border-2 border-white dark:border-stone-800 shadow-sm overflow-hidden flex items-center justify-center group-hover:border-rose-200 dark:group-hover:border-rose-500 transition-colors">
-                    {profile?.avatar_url ? (
-                      <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                    ) : (
-                      <div className="text-stone-400 dark:text-stone-300 text-sm font-bold">{profile?.display_name?.charAt(0) || session.user.email?.charAt(0).toUpperCase()}</div>
-                    )}
-                  </div>
-                  <span className="hidden sm:flex flex-col items-start">
-                    <span className="text-sm leading-tight">{t('profile')}</span>
-                    {profile?.is_admin && (
-                      <span className="text-[10px] text-rose-600 dark:text-rose-400 font-bold uppercase tracking-wider">{t('admin')}</span>
-                    )}
-                  </span>
-                </Link>
-                
                 {/* Mobile Sign Out */}
                 <button onClick={() => supabase.auth.signOut()} className="p-2 text-stone-500 dark:text-stone-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 rounded-full md:hidden transition-colors">
                   <LogOut className="w-5 h-5" />

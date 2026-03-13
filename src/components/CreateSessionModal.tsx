@@ -71,7 +71,7 @@ export default function CreateSessionModal({ isOpen, onClose, onSuccess, userId 
       setTotalPages('');
     } catch (err: any) {
       console.error('Error creating session:', err);
-      setError(err.message || 'An error occurred while creating the session.');
+      setError(err.message || t('create_session_error'));
     } finally {
       setLoading(false);
     }
@@ -95,7 +95,7 @@ export default function CreateSessionModal({ isOpen, onClose, onSuccess, userId 
           )}
           
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Book Title</label>
+            <label htmlFor="title" className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">{t('book_title')}</label>
             <input
               type="text"
               id="title"
@@ -103,12 +103,12 @@ export default function CreateSessionModal({ isOpen, onClose, onSuccess, userId 
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 text-stone-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-rose-400"
-              placeholder="e.g. The Great Gatsby"
+              placeholder={t('book_title_placeholder')}
             />
           </div>
           
           <div>
-            <label htmlFor="author" className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Author</label>
+            <label htmlFor="author" className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">{t('author')}</label>
             <input
               type="text"
               id="author"
@@ -116,12 +116,12 @@ export default function CreateSessionModal({ isOpen, onClose, onSuccess, userId 
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               className="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 text-stone-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-rose-400"
-              placeholder="e.g. F. Scott Fitzgerald"
+              placeholder={t('author_placeholder')}
             />
           </div>
           
           <div>
-            <label htmlFor="totalPages" className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Total Pages (or Chapters)</label>
+            <label htmlFor="totalPages" className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">{t('total_pages_chapters')}</label>
             <input
               type="number"
               id="totalPages"
@@ -130,7 +130,7 @@ export default function CreateSessionModal({ isOpen, onClose, onSuccess, userId 
               value={totalPages}
               onChange={(e) => setTotalPages(e.target.value)}
               className="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 text-stone-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-rose-400"
-              placeholder="e.g. 218"
+              placeholder={t('total_pages_placeholder')}
             />
           </div>
           

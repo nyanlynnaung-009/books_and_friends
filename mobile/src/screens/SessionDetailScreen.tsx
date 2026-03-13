@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, Keyboard
 import { supabase } from '../lib/supabase';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Send, Smile, Reply, X } from 'lucide-react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const EMOJIS = ['👍', '❤️', '😂', '😲', '😢'];
 
@@ -10,6 +11,7 @@ export default function SessionDetailScreen() {
   const route = useRoute<any>();
   const navigation = useNavigation<any>();
   const { id } = route.params;
+  const insets = useSafeAreaInsets();
 
   const [session, setSession] = useState<any>(null);
   const [comments, setComments] = useState<any[]>([]);
@@ -228,7 +230,7 @@ export default function SessionDetailScreen() {
         ListEmptyComponent={<Text style={styles.emptyText}>No comments yet. Be the first to start the discussion!</Text>}
       />
 
-      <View style={styles.inputWrapper}>
+      <View style={[styles.inputWrapper, { paddingBottom: Math.max(insets.bottom, 12) }]}>
         {replyingTo && (
           <View style={styles.replyingToContainer}>
             <View style={styles.replyingToTextContainer}>
@@ -443,6 +445,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     padding: 12,
+    paddingBottom: 0,
     alignItems: 'flex-end',
   },
   input: {

@@ -14,6 +14,7 @@ export default function UploadBookModal({ isOpen, onClose, onSuccess, userId }: 
   const { t } = useTranslation();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [totalPages, setTotalPages] = useState('');
   const [description, setDescription] = useState('');
   const [bookFile, setBookFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
@@ -25,7 +26,7 @@ export default function UploadBookModal({ isOpen, onClose, onSuccess, userId }: 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!bookFile) {
-      setError('Please select a book file.');
+      setError(t('please_select_book_file'));
       return;
     }
     setLoading(true);
@@ -66,7 +67,7 @@ export default function UploadBookModal({ isOpen, onClose, onSuccess, userId }: 
           file_type: bookExt,
           cover_url: coverUrl,
           creator_id: userId,
-          total_pages: 0
+          total_pages: parseInt(totalPages, 10) || 0
         })
         .select()
         .single();
@@ -100,6 +101,7 @@ export default function UploadBookModal({ isOpen, onClose, onSuccess, userId }: 
       // Reset form
       setTitle('');
       setAuthor('');
+      setTotalPages('');
       setDescription('');
       setBookFile(null);
       setCoverFile(null);
@@ -129,7 +131,7 @@ export default function UploadBookModal({ isOpen, onClose, onSuccess, userId }: 
           )}
           
           <div>
-            <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Book Title</label>
+            <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">{t('book_title')}</label>
             <input
               type="text"
               required
@@ -140,12 +142,24 @@ export default function UploadBookModal({ isOpen, onClose, onSuccess, userId }: 
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Author</label>
+            <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">{t('author')}</label>
             <input
               type="text"
               required
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
+              className="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 text-stone-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-rose-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">{t('total_pages_chapters')}</label>
+            <input
+              type="number"
+              required
+              min="1"
+              value={totalPages}
+              onChange={(e) => setTotalPages(e.target.value)}
               className="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-600 text-stone-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-rose-400"
             />
           </div>

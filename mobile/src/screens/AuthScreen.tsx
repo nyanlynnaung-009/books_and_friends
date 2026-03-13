@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { supabase } from '../lib/supabase';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function AuthScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const insets = useSafeAreaInsets();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -34,7 +36,7 @@ export default function AuthScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: Math.max(insets.top, 20), paddingBottom: Math.max(insets.bottom, 20) }]}>
       <Text style={styles.title}>Books & Friends</Text>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <TextInput
@@ -71,7 +73,6 @@ export default function AuthScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
     padding: 12,
     flex: 1,
     justifyContent: 'center',
