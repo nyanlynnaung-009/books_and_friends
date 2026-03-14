@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { User, Camera, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 
 export default function ProfileSettings({ userId, onProfileUpdate }: { userId: string, onProfileUpdate?: () => void }) {
   const { t } = useTranslation();
@@ -148,7 +149,12 @@ export default function ProfileSettings({ userId, onProfileUpdate }: { userId: s
   }
 
   return (
-    <div className="max-w-xl mx-auto">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="max-w-xl mx-auto"
+    >
       <div className="bg-white dark:bg-stone-800 rounded-3xl shadow-sm border border-stone-100 dark:border-stone-700 overflow-hidden transition-colors duration-200">
         <div className="p-8 border-b border-stone-100 dark:border-stone-700 bg-stone-50/50 dark:bg-stone-800/50">
           <h2 className="text-2xl font-bold text-stone-900 dark:text-white flex items-center gap-3 font-serif">
@@ -164,7 +170,11 @@ export default function ProfileSettings({ userId, onProfileUpdate }: { userId: s
           {/* Avatar Section */}
           <div className="flex flex-col items-center gap-4">
             <div className="relative group">
-              <div className="w-32 h-32 rounded-full bg-stone-100 dark:bg-stone-700 border-4 border-white dark:border-stone-800 shadow-md overflow-hidden flex items-center justify-center">
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-32 h-32 rounded-full bg-stone-100 dark:bg-stone-700 border-4 border-white dark:border-stone-800 shadow-md overflow-hidden flex items-center justify-center"
+              >
                 {avatarUrl ? (
                   <img 
                     src={avatarUrl} 
@@ -175,7 +185,7 @@ export default function ProfileSettings({ userId, onProfileUpdate }: { userId: s
                 ) : (
                   <User className="w-16 h-16 text-stone-300 dark:text-stone-500" />
                 )}
-              </div>
+              </motion.div>
               <label className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-full">
                 <Camera className="w-8 h-8 text-white" />
                 <input 
@@ -221,20 +231,24 @@ export default function ProfileSettings({ userId, onProfileUpdate }: { userId: s
             </div>
 
             {message && (
-              <div className={`flex items-center gap-2 p-4 rounded-xl text-sm ${
-                message.type === 'success' 
-                  ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800' 
-                  : 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 border border-red-100 dark:border-red-800'
-              }`}>
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className={`flex items-center gap-2 p-4 rounded-xl text-sm ${
+                  message.type === 'success' 
+                    ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800' 
+                    : 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 border border-red-100 dark:border-red-800'
+                }`}
+              >
                 {message.type === 'success' ? <CheckCircle2 className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
                 {message.text}
-              </div>
+              </motion.div>
             )}
 
             <button
               type="submit"
               disabled={updating}
-              className="w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-3 px-4 rounded-xl font-medium hover:from-rose-600 hover:to-rose-700 shadow-sm hover:shadow-md transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white py-3 px-4 rounded-xl font-medium hover:from-rose-600 hover:to-rose-700 shadow-sm hover:shadow-md transition-all disabled:opacity-50 flex items-center justify-center gap-2 active:scale-[0.98]"
             >
               {updating && <Loader2 className="w-5 h-5 animate-spin" />}
               {updating ? t('profile_settings.saving') : t('profile_settings.save_changes')}
@@ -242,6 +256,6 @@ export default function ProfileSettings({ userId, onProfileUpdate }: { userId: s
           </form>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

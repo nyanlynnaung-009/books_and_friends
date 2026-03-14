@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { BookOpen, Mail, Lock, Loader2, ArrowRight, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 
 export default function Auth() {
   const { t } = useTranslation();
@@ -41,12 +42,22 @@ export default function Auth() {
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-stone-50 dark:bg-stone-900/20 rounded-full blur-3xl opacity-50" />
       </div>
 
-      <div className="relative w-full max-w-[440px]">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="relative w-full max-w-[440px]"
+      >
         {/* Logo/Brand */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-14 h-14 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-rose-200 dark:shadow-rose-900/50 mb-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+          <motion.div 
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
+            className="w-14 h-14 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-rose-200 dark:shadow-rose-900/50 mb-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300"
+          >
             <BookOpen className="w-8 h-8" />
-          </div>
+          </motion.div>
           <h1 className="text-3xl font-bold text-stone-900 dark:text-white tracking-tight font-serif">{t('app_name')}</h1>
           <p className="text-stone-500 dark:text-stone-400 mt-2 text-center">
             {isSignUp ? t('auth.create_account_title') : t('auth.sign_in_title')}
@@ -54,13 +65,22 @@ export default function Auth() {
         </div>
 
         {/* Auth Card */}
-        <div className="bg-white/80 dark:bg-stone-800/80 backdrop-blur-xl p-8 rounded-[32px] shadow-2xl shadow-stone-200/50 dark:shadow-black/50 border border-white/50 dark:border-stone-700/50">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white/80 dark:bg-stone-800/80 backdrop-blur-xl p-8 rounded-[32px] shadow-2xl shadow-stone-200/50 dark:shadow-black/50 border border-white/50 dark:border-stone-700/50"
+        >
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-900/30 border border-red-100 dark:border-red-800 text-red-600 dark:text-red-400 rounded-2xl text-sm animate-shake">
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-900/30 border border-red-100 dark:border-red-800 text-red-600 dark:text-red-400 rounded-2xl text-sm"
+              >
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <p>{error}</p>
-              </div>
+              </motion.div>
             )}
 
             <div className="space-y-2">
@@ -128,13 +148,18 @@ export default function Auth() {
               {isSignUp ? t('auth.already_have_account') : t('auth.need_account')}
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Footer Info */}
-        <p className="mt-8 text-center text-stone-400 dark:text-stone-500 text-xs">
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mt-8 text-center text-stone-400 dark:text-stone-500 text-xs"
+        >
           By continuing, you agree to our Terms of Service and Privacy Policy.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
     </div>
   );
 }
