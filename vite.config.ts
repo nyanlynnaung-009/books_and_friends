@@ -22,6 +22,9 @@ export default defineConfig(({mode}) => {
           short_name: 'Books&Friends',
           description: 'A collaborative reading app',
           theme_color: '#f43f5e',
+          background_color: '#ffffff',
+          display: 'standalone',
+          start_url: '/',
           icons: [
             {
               src: 'icon-192x192.png',

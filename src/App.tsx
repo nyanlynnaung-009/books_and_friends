@@ -9,6 +9,7 @@ import SessionDetail from './components/SessionDetail';
 import ProfileSettings from './components/ProfileSettings';
 import Library from './components/Library';
 import AdminDashboard from './components/AdminDashboard';
+import { InstallPWA } from './components/InstallPWA';
 
 // Simple Dashboard Page
 function Dashboard({ userId }: { userId: string }) {
@@ -285,6 +286,7 @@ export default function App() {
             </div>
           </main>
         </div>
+        <InstallPWA />
       </div>
     </BrowserRouter>
   );
